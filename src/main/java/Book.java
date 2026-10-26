@@ -11,23 +11,30 @@ public class Book {
         this.isbn = isbn;
         this.isCheckedOut = isCheckedOut;
         this.checkedOutTo = checkedOutTo;
+        this.title = title;
     }
 
-    public void checkOut(String name){
-
-        if (isCheckedOut){
-
+    public void checkOut(String name) {
+        if (!isCheckedOut) {
+            isCheckedOut = true;
+            checkedOutTo = name;
+        } else {
+            System.out.println("This book is already checked out!");
         }
-
     }
 
 
     public void checkIn(){
-
+        if(isCheckedOut){
+            isCheckedOut = false;
+            checkedOutTo = "";
+        } else{
+            System.out.println("This book is already checked in");
+        }
     }
 
 
-    //Getters and Setters------------------------------------------------------------
+    //Getters and Setters------------------------------------------------------------|
     public int getId() {
         return id;
     }
@@ -58,5 +65,13 @@ public class Book {
 
     public void setCheckedOutTo(String checkedOutTo) {
         this.checkedOutTo = checkedOutTo;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

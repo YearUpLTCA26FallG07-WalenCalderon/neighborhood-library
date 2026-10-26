@@ -3,9 +3,10 @@ public class Book {
     private String isbn;
     private boolean isCheckedOut;
     private String checkedOutTo;
+    private String title;
 
 
-    public Book(int id, String isbn, boolean isCheckedOut, String checkedOutTo) {
+    public Book(int id, String isbn, boolean isCheckedOut, String checkedOutTo, String title) {
         this.id = id;
         this.isbn = isbn;
         this.isCheckedOut = isCheckedOut;
@@ -13,6 +14,10 @@ public class Book {
     }
 
     public void checkOut(String name){
+
+        if (isCheckedOut){
+
+        }
 
     }
 

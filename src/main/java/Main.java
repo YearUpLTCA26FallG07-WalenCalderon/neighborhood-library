@@ -28,8 +28,38 @@ public class Main {
         do{
             selection = Console.displayHomeScreen();
             switch (selection) {
-                case 1 -> showAvailableBooks(inventory);
-                case 2 -> showCheckedOutBooks(inventory);
+                case 1 ->{
+                    showAvailableBooks(inventory);
+                    //Searching for ID---------------------------------------------------------------------------------|
+                    int areWeSearchingById = Console.promptForInt("1- Search by Id \n0- Go back\n");
+                    if(areWeSearchingById == 1){
+                        int index = searchById(inventory);
+
+
+                        if (index > -1){ //Error handeling, what if index of the ID is -1?------------------------------|
+                            String name = Console.promptForString("Enter your name: ");
+                            inventory[index].checkOut(name);
+                        }else {
+                            System.out.println("Thats not a valid Id");
+                        }
+                    }
+                }
+                case 2 -> {
+                    showCheckedOutBooks(inventory);
+                    //Searching for ID---------------------------------------------------------------------------------|
+                    String areWeSearchingById = Console.promptForString("c- Id to check in\nx- Go back\n");
+                    if(areWeSearchingById.equalsIgnoreCase("C")){
+                        int index = searchById(inventory);
+
+
+                        if (index > -1){ //Error handeling, what if index of the ID is -1?------------------------------|
+                            inventory[index].checkIn();
+                        }else {
+                            System.out.println("Thats not a valid Id");
+                        }
+                    }
+
+                }
                 case 3 -> System.out.println("Goodbye!");
                 default -> System.out.println("Invalid selection.");
             }
@@ -38,7 +68,7 @@ public class Main {
 
 
     }
-
+    //To show the available books
     private static void showAvailableBooks(Book[] inventory) {
         for (int i = 0; i < inventory.length; i++){
             if (!inventory[i].isCheckedOut()) {
@@ -58,7 +88,7 @@ public class Main {
                 "ID", "ISBN", "TITLE", "BORROWED BY");
         for (int i = 0; i < inventory.length; i++){
             if (inventory[i].isCheckedOut()) {
-                System.out.printf("%-6d %-18s %-40s%n  %-20s%n",
+                System.out.printf("%-6d %-18s %-40s %-20s%n",
                         inventory[i].getId(),
                         inventory[i].getIsbn(),
                         inventory[i].getTitle(),
@@ -67,6 +97,20 @@ public class Main {
             }
         }
 
+    }
+
+    public static int searchById(Book[] inventory){
+        int id = Console.promptForInt("What is the Id: ");
+
+        for(int i = 0; i <inventory.length; i++){
+            if(id == inventory[i].getId()){
+                System.out.println(inventory[i].getId());
+                return i; //index position
+            }
+
+        }
+
+        return -1;//Returning value if id is not valid input
     }
 
 

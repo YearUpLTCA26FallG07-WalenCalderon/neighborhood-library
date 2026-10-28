@@ -1,3 +1,5 @@
+package com.pluralsight;
+
 import java.util.Scanner;
 public class Console{
     private static final Scanner sc = new Scanner(System.in);
